@@ -66,16 +66,23 @@ letrasdiferentes( [H|T] ) :-
 	not(member(H,T)),
 	letrasdiferentes(T).
 
-main :-
-	append('saida.txt'),
+main :- 
+    %% Tempo inicial
+    statistics(cputime,T1),
+ 
+ 
 	palavra3,
 	palavra4,
 	palavra5,
 	palavra6,
 	palavra7,
-	told,
-	write('Verifique resultados no arquivo saida.txt'),
 	nl,
-	write('Lucas Litter Mentz'),
-	nl.
-
+	write('Guilherme Roberto Utech e Lucas Litter Mentz.'),
+	nl,
+ 
+ 
+    %% Tempo final
+    statistics(cputime, T2), 
+    Tempo_BUSCA is (T2 - T1), 
+    format('\n T1: ~f \t T2: ~f  msec', [T1, T2]),
+    format('\n Tempo total: ~10f  msec', Tempo_BUSCA).
