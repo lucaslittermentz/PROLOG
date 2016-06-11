@@ -17,13 +17,6 @@ main :-
 
 
 
-%% Profissão (Job para facilitar nomeacao das variaveis)
-
-job(biologa).
-job(delegada).
-job(editora).
-job(professora).
-job(sociologa).
 
 
 resol([ (B1, N1, L1, P1, I1, J1),
@@ -68,7 +61,7 @@ resol([ (B1, N1, L1, P1, I1, J1),
 			job(J4),
 			job(J5),
 			
-			/*naoigual( [B1,B2,B3,B4,B5] ),
+			naoigual( [B1,B2,B3,B4,B5] ),
 			naoigual( [N1,N2,N3,N4,N5] ),
 			naoigual( [L1,L2,L3,L4,L5] ),
 			naoigual( [P1,P2,P3,P4,P5] ),
@@ -76,7 +69,7 @@ resol([ (B1, N1, L1, P1, I1, J1),
 			
 			%% A cliente mais nova está em uma das pontas
 			
-			(I1==29; I5==29),
+			/*(I1==29; I5==29),
 			
 			%% Viviane está ao lado da mulher da bolsa amarela.
 			
@@ -193,7 +186,7 @@ resol([ (B1, N1, L1, P1, I1, J1),
 			
 			*/nl.
 		
-naoigual( [ ] ) :- true.
+naoigual( [ ] ).
 naoigual( [H|T] ) :-
 	not(member(H,T)),
 	naoigual(T).
@@ -228,3 +221,11 @@ idade(36).
 idade(43).
 idade(48).
 idade(55).
+
+%% Profissão (Job para facilitar nomeacao das variaveis)
+
+job(biologa).
+job(delegada).
+job(editora).
+job(professora).
+job(sociologa).
