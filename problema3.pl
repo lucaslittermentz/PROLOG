@@ -1,19 +1,3 @@
-fib(1,1).
-fib(2,1).
-fib(Y,X) :- Y1 is Y-1, Y2 is Y-2, fib(Y1,X1), fib(Y2,X2), X is X1+X2.
-fib(X) :- 
-	fib(X,Y), 
-	write('Fib('), 
-	write(X), 
-	write(') = '), 
-	write(Y), 
-	nl.
-
-fat(1,1).
-fat(Y,X) :- Y1 is Y-1, fat(Y1, X1), X is Y*X1.
-fat(Y) :- fat(Y,X), write('X = '), write(X), nl.
-
-
 letra(1,c).
 letra(2,a).
 letra(3,o).
@@ -83,9 +67,15 @@ letrasdiferentes( [H|T] ) :-
 	letrasdiferentes(T).
 
 main :-
+	append('saida.txt'),
 	palavra3,
 	palavra4,
 	palavra5,
 	palavra6,
 	palavra7,
+	told,
+	write('Verifique resultados no arquivo saida.txt'),
+	nl,
+	write('Lucas Litter Mentz'),
 	nl.
+
