@@ -1,23 +1,4 @@
-﻿/* 
-Alunos: Guilherme Roberto Utech e Lucas Litter Mentz
-
-Saída:
-
-1 ?- main.
-
-verde,sandra,natureza,25,55,biologa
-amarela,geisilene,mandalas,20,48,delegada
-azul,rose,animais,15,43,sociologa
-branca,vilma,flores,35,36,professora
-vermelha,gisele,gatos,30,29,editora
-
- T1: 0.140401    T2: 0.561604  msec
- Tempo total: 0.4212027000  msec
-true ;
-false
-*/
-
-main :-
+﻿main :-
 	%% Tempo inicial
     statistics(cputime,T1),
 
@@ -30,6 +11,10 @@ main :-
     format('\n T1: ~f \t T2: ~f  msec', [T1, T2]),
     format('\n Tempo total: ~10f  msec', Tempo_BUSCA).
 
+imprimelista([]).
+imprimelista([H | T]) :-
+	write(H), nl,
+	imprimelista(T).
 
 resol([ (B1, N1, L1, P1, I1, J1),
 		(B2, N2, L2, P2, I2, J2),
@@ -54,29 +39,29 @@ resol([ (B1, N1, L1, P1, I1, J1),
 
 			naoigual( [N1,N2,N3,N4,N5] ),
 
-			%% geisilene está ao lado da mulher que vai comprar o livro de colorir de Natureza.
-			N2==geisilene,
+			%% Renata está ao lado da mulher que vai comprar o livro de colorir de Natureza.
+			N2==renata,
 			%% Ângela está em algum lugar entre a Delegada e a mulher de 36 anos, nessa ordem.
-			N3==rose,
-			%% sandra está ao lado da mulher da bolsa amarela.
-			((B1==amarela,N2==sandra);
-			(B2==amarela,(N1==sandra;N3==sandra));
-			(B3==amarela,(N2==sandra;N4==sandra));
-			(B4==amarela,(N3==sandra;N5==sandra));
-			(B5==amarela,N4==sandra)),
-			%% vilma está usando uma bolsa Branca.
-			((N1==vilma,B1==branca);
-			(N2==vilma,B2==branca);
-			(N3==vilma,B3==branca);
-			(N4==vilma,B4==branca);
-			(N5==vilma,B5==branca)),
-			%% A dona da bolsa Branca está em algum lugar entre a dona da bolsa verde e a gisele, nessa ordem.
-			((B1==verde,(B2==branca;B3==branca;B4==branca),N5==gisele);
-			(B2==verde,(B3==branca;B4==branca),N5==gisele);
-			(B3==verde,B4==branca,N5==gisele);
-			(B1==verde,(B2==branca;B3==branca),N4==gisele);
-			(B2==verde,B3==branca,N4==gisele);
-			(B1==verde,B2==branca,N3==gisele)),
+			N3==angela,
+			%% Viviane está ao lado da mulher da bolsa amarela.
+			((B1==amarela,N2==viviane);
+			(B2==amarela,(N1==viviane;N3==viviane));
+			(B3==amarela,(N2==viviane;N4==viviane));
+			(B4==amarela,(N3==viviane;N5==viviane));
+			(B5==amarela,N4==viviane)),
+			%% Marcela está usando uma bolsa Branca.
+			((N1==marcela,B1==branca);
+			(N2==marcela,B2==branca);
+			(N3==marcela,B3==branca);
+			(N4==marcela,B4==branca);
+			(N5==marcela,B5==branca)),
+			%% A dona da bolsa Branca está em algum lugar entre a dona da bolsa verde e a Luana, nessa ordem.
+			((B1==verde,(B2==branca;B3==branca;B4==branca),N5==luana);
+			(B2==verde,(B3==branca;B4==branca),N5==luana);
+			(B3==verde,B4==branca,N5==luana);
+			(B1==verde,(B2==branca;B3==branca),N4==luana);
+			(B2==verde,B3==branca,N4==luana);
+			(B1==verde,B2==branca,N3==luana)),
 
 
 			livro(L1),
@@ -131,8 +116,6 @@ resol([ (B1, N1, L1, P1, I1, J1),
 
 			%% A mulher de 36 anos está na quarta posição.
 			I4==36,
-			%% A cliente mais nova esta em uma das pontas
-			(I1==29;I5==29),
 			%% A dona da bolsa Azul está exatamente à esquerda da mulher de 36 anos.
 			((B1==azul,I2==36);
 			(B2==azul,I3==36);
@@ -184,11 +167,11 @@ bolsa(branca).
 bolsa(verde).
 bolsa(vermelha).
 
-nome(rose).
-nome(gisele).
-nome(vilma).
-nome(geisilene).
-nome(sandra).
+nome(angela).
+nome(luana).
+nome(marcela).
+nome(renata).
+nome(viviane).
 
 livro(animais).
 livro(flores).
@@ -215,9 +198,3 @@ job(delegada).
 job(editora).
 job(professora).
 job(sociologa).
-
-
-imprimelista([]).
-imprimelista([H | T]) :-
-	write(H), nl,
-	imprimelista(T).
