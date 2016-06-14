@@ -1,3 +1,23 @@
+/*
+Alunos: Guilherme Roberto Utech e Lucas Litter Mentz
+
+Saída:
+
+1 ?- main.
+
+vermelho,isabela,joao,7,pedemoleque,ceara
+verde,luciane,robson,10,cuzcuz,sergipe
+azul,adelaide,luis,8,arrozdoce,bahia
+amarelo,roberta,paulo,9,suspiro,alagoas
+branco,gabriela,mario,11,pamonha,paraiba
+
+ T1: 0.046875    T2: 3.312500  msec
+ Tempo total: 3.2656250000  msec
+true ;
+false.
+
+*/
+
 main :-
 	%% Tempo inicial
     statistics(cputime,T1),
@@ -23,7 +43,7 @@ festa([ (V1,M1,F1,I1,C1,E1),
 	(V2,M2,F2,I2,C2,E2),
 	(V3,M3,F3,I3,C3,E3),
 	(V4,M4,F4,I4,C4,E4),
-	(V5,M5,F5,I5,C5,E5) ]):-
+	(V5,M5,F5,I5,C5,E5) ]) :-
 
 
 	vestido(V1),
@@ -43,6 +63,14 @@ festa([ (V1,M1,F1,I1,C1,E1),
 
 	tudodiferente([M1,M2,M3,M4,M5]),
 	%% Regras envolvendo mãe.
+	%% A Adelaide (Valentina) está na terceira posição.
+	M3==adelaide,
+	%% Adelaide (Valentina) está exatamente à esquerda de Roberta (Eduarda).
+	((M1==adelaide,M2==roberta);
+	(M2==adelaide,M3==roberta);
+	(M3==adelaide,M4==roberta);
+	(M4==adelaide,M5==roberta)),
+
 
 	filho(F1),
 	filho(F2),
@@ -52,19 +80,24 @@ festa([ (V1,M1,F1,I1,C1,E1),
 
 	tudodiferente([F1,F2,F3,F4,F5]),
 	%% Regras envolvendo filho.
-	%% Luiz está na terceira posição.
-	F3==luiz,
-	%% Luciana está ao lado da mãe de Tales.
-	((F1==tales,M2==luciana);
-	(F2==tales,(M1==luciana;M3==luciana));
-	(F3==tales,(M2==luciana;M4==luciana));
-	(F4==tales,(M3==luciana;M5==luciana));
-	(F5==tales,M4==luciana)),
-	%% A mãe do José está em algum lugar à direita da mulher do vestido Verde.
-	((V1==verde,(F2==jose;F3==jose;F4==jose;F5==jose));
-	(V2==verde,(F3==jose;F4==jose;F5==jose));
-	(V3==verde,(F4==jose;F5==jose));
-	(V4==verde,F5==jose)),
+	%% Luis (Luiz) está na terceira posição.
+	F3==luis,
+	%% A mão de Robson (Francisco) está exatamente à esquerda da mãe de Luis (Luiz).
+	((F1==robson,F2==luis);
+	(F2==robson,F3==luis);
+	(F3==robson,F4==luis);
+	(F4==robson,F5==luis)),
+	%% Luciane (Luciana) está ao lado da mãe de Joao (Tales).
+	((F1==joao,M2==luciane);
+	(F2==joao,(M1==luciane;M3==luciane));
+	(F3==joao,(M2==luciane;M4==luciane));
+	(F4==joao,(M3==luciane;M5==luciane));
+	(F5==joao,M4==luciane)),
+	%% A mãe do Paulo (José) está em algum lugar à direita da mulher do vestido Verde.
+	((V1==verde,(F2==paulo;F3==paulo;F4==paulo;F5==paulo));
+	(V2==verde,(F3==paulo;F4==paulo;F5==paulo));
+	(V3==verde,(F4==paulo;F5==paulo));
+	(V4==verde,F5==paulo)),
 
 
 	idade(I1),
@@ -75,12 +108,34 @@ festa([ (V1,M1,F1,I1,C1,E1),
 
 	tudodiferente([I1,I2,I3,I4,I5]),
 	%% Regras envolvendo idade
-	%% O filho da Luciana tem 10 anos.
-	((M1==luciana,I1==10);
-	(M2==luciana,I2==10);
-	(M3==luciana,I3==10);
-	(M4==luciana,I4==10);
-	(M5==luciana,I5==10)),
+	%% A mãe do filho de 8 anos está em algum lugar à direita da mulher do vestido Verde.
+	((V1==verde,(I2==8;I3==8;I4==8;I5==8));
+	(V2==verde,(I3==8;I4==8;I5==8));
+	(V3==verde,(I4==8;I5==8));
+	(V4==verde,I5==8)),
+	%% A mãe do garoto mais velho está em algum lugar à direita da mulher do vestido Azul.
+	((V1==azul,(I2==11;I3==11;I4==11;I5==11));
+	(V2==azul,(I3==11;I4==11;I5==11));
+	(V3==azul,(I4==11;I5==11));
+	(V4==azul,I5==11)),
+	%% A mulher do vestido Amarelo está exatamente à esquerda da mãe do filho de 11 anos.
+	((V1==amarelo,I2==11);
+	(V2==amarelo,I3==11);
+	(V3==amarelo,I4==11);
+	(V4==amarelo,I5==11)),
+	%% A mulher do vestido Azul está ao lado da mãe do filho de 9 anos.
+	((I1==9,V2==azul);
+	(I2==9,(V1==azul;V3==azul));
+	(I3==9,(V2==azul;V4==azul));
+	(I4==9,(V3==azul;V5==azul));
+	(I5==9,V4==azul)),
+	%% O filho da Luciane (Luciana) tem 10 anos.
+	((M1==luciane,I1==10);
+	(M2==luciane,I2==10);
+	(M3==luciane,I3==10);
+	(M4==luciane,I4==10);
+	(M5==luciane,I5==10)),
+
 
 	comida(C1),
 	comida(C2),
@@ -90,6 +145,20 @@ festa([ (V1,M1,F1,I1,C1,E1),
 
 	tudodiferente([C1,C2,C3,C4,C5]),
 	%% Regras envolvendo comida
+	%% Quem levou Cuzcuz está na segunda posição.
+	C2==cuzcuz,
+	%% A mãe de Mario (Roberto) levou Pamonha para a festa.
+	((F1==mario,C1==pamonha);
+	(F2==mario,C2==pamonha);
+	(F3==mario,C3==pamonha);
+	(F4==mario,C4==pamonha);
+	(F5==mario,C5==pamonha)),
+	%% Mario (Roberto) está exatamente à direita de quem levou Suspiro para a festa.
+	((C1==suspiro,F2==mario);
+	(C2==suspiro,F3==mario);
+	(C3==suspiro,F4==mario);
+	(C4==suspiro,F5==mario)),
+
 
 	estado(E1),
 	estado(E2),
@@ -99,66 +168,39 @@ festa([ (V1,M1,F1,I1,C1,E1),
 
 	tudodiferente([E1,E2,E3,E4,E5]),
 	%% Regras envolvendo estado
-	%% A mãe que levou Suspiro para a festa nasceu no estado cuja capital é Maceió.
-	%% ((C1==suspiro,E1==maceio);
-	%% (C2==suspiro,E2==maceio);
-	%% (C3==suspiro,E3==maceio);
-	%% (C4==suspiro,E4==maceio);
-	%% (C5==suspiro,E5==maceio)),
-	%% Quem levou Cuzcuz está na segunda posição.
-	C2==cuzcuz,
-	%% A mãe de Roberto levou Pamonha para a festa.
-	%% ((F1==roberto,C1==pamonha);
-	%% (F2==roberto,C2==pamonha);
-	%% (F3==roberto,C3==pamonha);
-	%% (F4==roberto,C4==pamonha);
-	%% (F5==roberto,C5==pamonha)),
-
-
-	
-
-	%% A mãe do garoto mais velho está em algum lugar à direita da mulher do vestido Azul.
-	%% 
-
 	%% A mulher do vestido Verde está exatamente à esquerda da mulher que nasceu na Bahia.
-
-
-	%% Roberto está exatamente à direita de quem levou Suspiro para a festa.
-
-
-	%% Valentina está exatamente à esquerda de Eduarda.
-
-
-	%% A mulher do vestido Azul está ao lado da mãe do filho de 9 anos.
-
-
-	%% Quem levou Arroz doce está exatamente à esquerda da mãe que nasceu em Alagoas.
-
-
-	%% A mãe do filho de 8 anos está em algum lugar à direita da mulher do vestido Verde.
-
-
-	%% A mãe de Francisco está exatamente à esquerda da mãe de Luiz.
-
-
-	%% A mulher do vestido Amarelo está exatamente à esquerda da mãe do filho de 11 anos.
-
-
-	%% Fátima está ao lado da mãe que nasceu em Alagoas.
-
-
-	%% A mulher que nasceu no Ceará está exatamente à esquerda da mulher que nasceu no estado cuja capital é Aracaju.
-
-
-
+	((V1==verde,E2==bahia);
+	(V2==verde,E3==bahia);
+	(V3==verde,E4==bahia);
+	(V4==verde,E5==bahia)),
 	%% A mulher do vestido Vermelho está ao lado da mulher que nasceu em Sergipe.
-
-
-	%% A Valentina está na terceira posição.
-	%% M3==valentina,
-
-
-
+	((E1==sergipe,V2==vermelho);
+	(E2==sergipe,(V1==vermelho;V3==vermelho));
+	(E3==sergipe,(V2==vermelho;V4==vermelho));
+	(E4==sergipe,(V3==vermelho;V5==vermelho));
+	(E5==sergipe,V4==vermelho)),
+	%% Gabriela (Fátima) está ao lado da mãe que nasceu em Alagoas.
+	((E1==alagoas,M2==gabriela);
+	(E2==alagoas,(M1==gabriela;M3==gabriela));
+	(E3==alagoas,(M2==gabriela;M4==gabriela));
+	(E4==alagoas,(M3==gabriela;M5==gabriela));
+	(E5==alagoas,M4==gabriela)),
+	%% A mulher que nasceu no Ceará está exatamente à esquerda da mulher que nasceu no estado cuja capital é Aracaju.
+	((E1==ceara,E2==sergipe);
+	(E2==ceara,E3==sergipe);
+	(E3==ceara,E4==sergipe);
+	(E4==ceara,E5==sergipe)),
+	%% Quem levou Arroz doce está exatamente à esquerda da mãe que nasceu em Alagoas.
+	((C1==arrozdoce,E2==alagoas);
+	(C2==arrozdoce,E3==alagoas);
+	(C3==arrozdoce,E4==alagoas);
+	(C4==arrozdoce,E5==alagoas)),
+	%% A mãe que levou Suspiro para a festa nasceu no estado cuja capital é Maceió.
+	((C1==suspiro,E1==alagoas);
+	(C2==suspiro,E2==alagoas);
+	(C3==suspiro,E3==alagoas);
+	(C4==suspiro,E4==alagoas);
+	(C5==suspiro,E5==alagoas)),
 
 	nl.
 
@@ -171,17 +213,17 @@ vestido(branco).
 vestido(verde).
 vestido(vermelho).
 
-mae(eduarda).
-mae(fatima).
-mae(luciana).
-mae(maria).
-mae(valentina).
+mae(roberta). %% eduarda
+mae(gabriela). %% fatima
+mae(luciane). %% luciana
+mae(isabela). %% maria
+mae(adelaide). %% valentina
 
-filho(francisco).
-filho(jose).
-filho(luiz).
-filho(roberto).
-filho(tales).
+filho(robson). %% francisco
+filho(paulo). %% jose
+filho(luis). %% luiz
+filho(mario). %% roberto
+filho(joao). %% tales
 
 idade(7).
 idade(8).

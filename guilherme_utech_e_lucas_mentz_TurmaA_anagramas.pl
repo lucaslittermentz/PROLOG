@@ -1,3 +1,42 @@
+/*
+Alunos: Guilherme Roberto Utech e Lucas Litter Mentz
+
+Saída:
+
+1 ?- main.
+[...]
+rdocaoc
+rdococa
+rdocoac
+
+Guilherme Roberto Utech e Lucas Litter Mentz.
+
+ T1: 0.015625    T2: 0.828125  msec
+ Tempo total: 0.8125000000  msec
+true.
+
+*/
+
+main :- 
+    %% Tempo inicial
+    statistics(cputime,T1),
+ 
+	palavra3,
+	palavra4,
+	palavra5,
+	palavra6,
+	palavra7,
+	nl,
+	write('Guilherme Roberto Utech e Lucas Litter Mentz.'),
+	nl,
+ 
+    %% Tempo final
+    statistics(cputime, T2), 
+    Tempo_BUSCA is (T2 - T1), 
+    format('\n T1: ~f \t T2: ~f  msec', [T1, T2]),
+    format('\n Tempo total: ~10f  msec', Tempo_BUSCA).
+
+
 letra(1,c).
 letra(2,a).
 letra(3,o).
@@ -66,23 +105,4 @@ letrasdiferentes( [H|T] ) :-
 	not(member(H,T)),
 	letrasdiferentes(T).
 
-main :- 
-    %% Tempo inicial
-    statistics(cputime,T1),
- 
- 
-	palavra3,
-	palavra4,
-	palavra5,
-	palavra6,
-	palavra7,
-	nl,
-	write('Guilherme Roberto Utech e Lucas Litter Mentz.'),
-	nl,
- 
- 
-    %% Tempo final
-    statistics(cputime, T2), 
-    Tempo_BUSCA is (T2 - T1), 
-    format('\n T1: ~f \t T2: ~f  msec', [T1, T2]),
-    format('\n Tempo total: ~10f  msec', Tempo_BUSCA).
+

@@ -14,7 +14,8 @@ vermelha,gisele,gatos,30,29,editora
  T1: 0.140401    T2: 0.561604  msec
  Tempo total: 0.4212027000  msec
 true ;
-false
+false.
+
 */
 
 main :-
@@ -54,23 +55,23 @@ resol([ (B1, N1, L1, P1, I1, J1),
 
 			naoigual( [N1,N2,N3,N4,N5] ),
 
-			%% geisilene está ao lado da mulher que vai comprar o livro de colorir de Natureza.
+			%% Geisilene (renata) está ao lado da mulher que vai comprar o livro de colorir de Natureza.
 			N2==geisilene,
-			%% Ângela está em algum lugar entre a Delegada e a mulher de 36 anos, nessa ordem.
+			%% Rose (Angela) está em algum lugar entre a Delegada e a mulher de 36 anos, nessa ordem.
 			N3==rose,
-			%% sandra está ao lado da mulher da bolsa amarela.
+			%% Sandra (viviane) está ao lado da mulher da bolsa amarela.
 			((B1==amarela,N2==sandra);
 			(B2==amarela,(N1==sandra;N3==sandra));
 			(B3==amarela,(N2==sandra;N4==sandra));
 			(B4==amarela,(N3==sandra;N5==sandra));
 			(B5==amarela,N4==sandra)),
-			%% vilma está usando uma bolsa Branca.
+			%% Vilma (marcela) está usando uma bolsa Branca.
 			((N1==vilma,B1==branca);
 			(N2==vilma,B2==branca);
 			(N3==vilma,B3==branca);
 			(N4==vilma,B4==branca);
 			(N5==vilma,B5==branca)),
-			%% A dona da bolsa Branca está em algum lugar entre a dona da bolsa verde e a gisele, nessa ordem.
+			%% A dona da bolsa Branca está em algum lugar entre a dona da bolsa verde e a Gisele (Luana), nessa ordem.
 			((B1==verde,(B2==branca;B3==branca;B4==branca),N5==gisele);
 			(B2==verde,(B3==branca;B4==branca),N5==gisele);
 			(B3==verde,B4==branca,N5==gisele);
@@ -184,11 +185,11 @@ bolsa(branca).
 bolsa(verde).
 bolsa(vermelha).
 
-nome(rose).
-nome(gisele).
-nome(vilma).
-nome(geisilene).
-nome(sandra).
+nome(rose). %% angela
+nome(gisele). %% luana
+nome(vilma). %% marcela
+nome(geisilene). %% renata
+nome(sandra). %% viviane
 
 livro(animais).
 livro(flores).
